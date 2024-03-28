@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Routes } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Layout from './components/Layout'
+import Searchresults from './components/Searchresults'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [content, setContent] = useState([])
+  const [query, setQuery] = useState()
+  const [currentId, setCurrentId] = useState()
+
+  const getData = async()=>{
+    try{
+      const response = await fetch(`https://openlibrary.org/search.json?title=${query})`) /*james+bond eller ${query}   kan bruke dette i stedet for å søke dynamisk */
+      const data = await response.json()
+      setContent(data)
+      console.log(content)
+    }catch{
+      console.error("Fikk ikke hentet data.")
+    }
+  }
+
+  useEffect(()=>{
+    getData()
+    setCurrentId(localStorage.getItem("key"))
+  },[query])
+
+  console.log("ID", currentId)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Layout>
+      <Routes>
+        <Route index element={<Searchresults content={content}/>}/>
+      </Routes>
+    </Layout>
   )
 }
 
