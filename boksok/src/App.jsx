@@ -7,8 +7,8 @@ import Layout from './components/Layout'
 function App() {
 
   const [content, setContent] = useState([])
-  const [query, setQuery] = useState()
-  const [currentId, setCurrentId] = useState()
+  const [query, setQuery] = useState("James+Bond")
+  const [currentId, setCurrentId] = useState("")
 
   const getData = async()=>{
     try{
@@ -23,13 +23,13 @@ function App() {
 
   useEffect(()=>{
     getData()
-    setCurrentId(localStorage.getItem("key"))
+    setCurrentId(localStorage.getItem("_version_"))
   },[query])
 
   console.log("ID", currentId)
 
   return (
-    <Layout>
+    <Layout content={content} setQuery={setQuery} >
       <Routes>
         <Route index element={<Searchresults content={content}/>}/>
       </Routes>

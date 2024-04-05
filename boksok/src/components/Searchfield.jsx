@@ -15,19 +15,19 @@ export default function SearchField({content, setQuery, setCurrentId}){
 
     const handleClick = (id)=>{
         setCurrentId(id)
-        localStorage.setItem("key", id)
+        localStorage.setItem("_version_", id)
     }
 
     return(
     <>
-        <h1>Søk etter bok</h1>
+        <h2>Søk etter bok</h2>
         <form onSubmit={handleSubmit}>
-        <label htmlFor="search">Søk etter bok:</label>
-        <input type="text" id="search" placeholder="James Bond..." onChange={handleChange}></input>
-        <input type="submit" value="Søk"></input>
+            <label htmlFor="search"></label>
+            <input type="text" id="search" placeholder="James Bond..." onChange={handleChange}></input>
+            <input className="button" type="submit" value="Søk"></input>
         </form>
         <ul className="book-list">
-            {content?.map(item => <li key={item.key}><Link to={item.title} onClick={()=>handleClick(item.id)}>{item.name}</Link></li>)}
+            {content?.map(item => <li key={item._version_}><Link to={item.title} onClick={()=>handleClick(item._version_)}>{item.title}</Link></li>)}
         </ul>
     </>
     )

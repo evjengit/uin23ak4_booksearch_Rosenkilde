@@ -1,0 +1,29 @@
+form{
+    display: flex;
+    justify-content: center;
+    .button{
+        background-color: rgb(237, 255, 39);
+        margin: 0 .5rem;
+        padding: 0.8rem 1.7rem;
+        border: 2px solid rgb(23, 23, 23);
+        color: black;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+    }
+    #search{
+        width: 45%;
+        margin-bottom: 0 1rem;
+        padding: 0 1rem;
+        border: none;
+        min-height: 50px;
+        background-color: #eee5ba;
+        font-size: 1.2rem;
+        display: block;
+        border-radius: 10px;
+        border: solid 2px black;
+    }
+}
